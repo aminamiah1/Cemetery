@@ -1,3 +1,3 @@
-pipenv shell
-pipenv install
-python main.py
+1. pipenv shell
+2. pipenv install
+3. python main.py
