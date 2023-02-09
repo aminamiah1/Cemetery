@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- CSS,JS and Jquery slim for bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <!--CSS File for LeafletJs Maps-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <!--Script file for leafletJs-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <title>Edit and Submit</title>
+    <link rel="stylesheet" href="/static/header-footer.css">
+    <style>
+        #map {
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body class="body">
+    {% include 'navbar-bs.html' %}
+    <header class="pl-5 pr-5 pt-2 pb-2 text-center">
+        <h1>Please Review the Information Submitted</h1>
+
+    </header>
+    <main>
+        <div class="container w-75 p-0">
+            <form action="/api/approved" method="POST" class="m-3" enctype = "multipart/form-data">
+                <h5 id="username">User Name: </h5>
+                <h5 id="useremail">User Name: </h5>
+                <div class="form-group">
+                    <label><b>Name on the Grave:</b><input type="text" id="gravename" name="graveName"
+                            class="form-control"></label>
+                </div>
+                <div class="form-group">
+                    <label><b>Story:</b><textarea id="gravestory" name="graveInfo" rows="4" cols="50"
+                            class="form-control"></textarea>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label class="m-3"><b>Latitude</b><input type="text" id="gravelat" name="gravelat"
+                            Required="required" class="form-control"></label>
+                        <label class="m-3"><b>Longitude:</b><input type="text" id="gravelong" name="gravelong"
+                            Required="required" class="form-control"></label>
+                        <div class="column">
+                            <p class="m-0 mt-3"><b>Find Co-Ordinates</b></p>
+                            <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                data-target="#exampleModal" >Map</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Select Grave Location</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="map"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="graveimage"><b>Image Upload</b> </label>
+                    <input type="file" class="form-control-file" id="graveimage" name="graveimage" accept="image/png, image/jpeg">
+                  </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+
+    <script>
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id')
+        $.get("/api/submissions", { id: id })
+            .done(function (data) {
+                console.log(data);
+                $("#username").append(data.username);
+                $("#useremail").append(data.useremail);
+                $("#gravename").val(data.gravename);
+                $("#gravestory").val(data.gravestory);
+            });
+
+        var mymap = L.map('map').setView([51.5818885, -3.020414], 16);
+
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            maxZoom: 18,
+            attribution: 'Map data OSM',
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1
+        }).addTo(mymap);
+        mymap.on('click', function (e) {
+            let modalLatVar = e.latlng.lat;
+            let modalLongVar = e.latlng.lng;
+            console.log(modalLatVar,modalLongVar)
+            $("#gravelat").val(String(modalLatVar));
+            $("#gravelong").val(String(modalLongVar));
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!--
+    Submitted Grave Template for Admin page using Bootstrap
+-->
+
+<div id='{{id}}'>
+    <div class="container p-0">
+        <div class="row m-2">
+            <div class="col-6">
+                <h2>
+                    {{gravename}}
+                </h2>
+                <h5>
+                    Location Description: {{locationDescription}}
+                </h5>
+                <p>
+                    {{gravestory}}
+                </p>
+            </div>
+            <div class="col">
+                <h5 class="p">User: {{username}}</h5>
+                <h5>User Email: {{useremail}}</h5>
+                <h5>Submitted: {{date}}</h5>
+                <div class="row pl-3 btn-group">
+                    <button class="btn btn-outline-primary" onclick="location.href = 'admin/edit?id={{id}}'">Edit</button>
+                    <button class="btn btn-outline-danger" value="{{id}}" onclick="return deleteGrave(graveID=value)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div><hr>
+</div>

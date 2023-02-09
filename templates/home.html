@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+   <meta charset="UTF-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- CSS,JS and Jquery slim for bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <title>St. Woolos</title>
+    <link rel="stylesheet" href="/static/header-footer.css">
+    <style>
+      .hero { 
+         background-image: url(/static/img/heroimage.png);
+         background-position: center;
+         background-repeat: no-repeat;
+         background-size: cover;
+         position: relative;
+         display: flex;
+         margin-bottom: 10px;
+         z-index: 20;
+       
+         @media ( min-width: $max-tablet) {
+           margin-bottom: 30px;
+         }}
+    </style>
+  </head>
+
+  <body class="body">
+    {% include 'navbar-bs.html' %}
+   <main role="main">
+      <div class="jumbotron hero">
+         <div class="container text-white">
+            <h1 class="display-3 pl-2 pr-2">St. Wollos</h1>
+            <p class="pl-2 pr-2">St Woolos Cemetery is the main cemetery in the city of Newport. It's been
+               used as a graveyard since the early 1800s. Numerous famous/significant
+               figures are buried in St Woolos cemetry, such as Jon Lee (musician) and
+               John Byrne (Crimean War Victoria Cross Medal Recipient).</p>
+            <p class="pl-2 pr-2">
+               <a class="btn btn-primary btn-lg" href="{{url_for('returnTour')}}" role="button">Go to the Tour!</a>
+            </p>
+            {% include 'searchBar.html' %}
+         </div>
+      </div>
+      <hr>
+      <div class="container">
+         <div class="row">
+            <div class="col-md-4">
+               <h2>Opening Times</h2>
+               <ul>
+                  <li>Monday: 6:30am - 4:45pm</li>
+                  <li>Tuesday: 6:30am - 4:45pm</li>
+                  <li>Wednesday: 6:30am - 4:45pm</li>
+                  <li>Thursday: 6:30am - 4:45pm</li>
+                  <li>Friday: 6:30am - 4:45pm</li>
+                  <li>Saturday: 6:30am - 4:45pm</li>
+                  <li>Sunday: 6:30am - 4:45pm</li>
+                </ul>
+               <p><a class="btn btn-secondary" href="https://goo.gl/maps/KHxyxWaCfnpYsPpw7" role="button">Visit Us »</a></p>
+            </div>
+            <div class="col-md-4">
+               <h2>Contribution Page</h2>
+               <p>Help Us Out! We are always looking for more information about the people buried in our
+                  cemetery and we would love to add your stories to our website. All submissions are reviewed
+                  and checked by our moderators.
+               </p>
+               <p><a class="btn btn-secondary" href="{{url_for('contribution')}}" role="button">Contributions  »</a></p>
+            </div>
+            <div class="col-md-4">
+               <h2 class="pb-2">Contact Us</h2>
+               <p><a class="btn btn-secondary btn-block" href="{{url_for('contactUs')}}" role="button">Send us a message</a></p>
+               <p><a class="btn btn-secondary btn-block" href="https://www.facebook.com/IfTheStonesCouldTalk" role="button">Facebook</a></p>
+               <p><a class="btn btn-secondary btn-block" href="mailto:info@newport.gov.uk" role="button">Email</a></p>
+               <p><a class="btn btn-secondary btn-block" href="https://www.newport.gov.uk/en/Care-Support/Cemeteries.aspx" role="button">Newport Council</a></p>
+            </div>
+         </div>
+      </div>
+   </main>
+
+   <hr>
+   <aside>
+   <div class="container pb-3 pt-3">
+      <div class="row">
+         <div class="col">
+            <h3>Richard Frame</h3>
+            <h4>Newport Historian</h4>
+            <p>Richard Frame came to Newport in the early 1970’s to attend the local
+               art college. It didn’t take long before he became immersed in
+               Newport’s history, and in 1983 jointly founded the local history
+               society. Richard is an active member of The Chartist Anniversary
+               Committee, he regularly gives talks on such subjects as “Britain’s
+               Secret Army”, St Woollos Cemetery, John Frost and the prehistoric
+               monuments of Gwent. He is available to give guided tours around St
+               Woollos Cemetery.
+             </p>
+         </div>
+         <div class="col-md-auto">
+            <img src="static\richard_frame.jpg" height="200px">
+         </div>
+      </div>
+   </div>
+
+   <div class="container pb-3 pt-3">
+      <div class="row">
+         <div class="col-md-auto">
+            <img src="../static/centruryseye.jpg" height="200px">
+         </div>
+         <div class="col">
+            <h3>Through the Century's Eye</h3>
+            
+            <p>Richard produced 'Through the Centuries Eye Pictures of Newport' with Mike Buckingham.
+               
+             </p>
+         </div>
+         
+      </div>
+   </div>
+
+   <div class="container pb-3 pt-3">
+      <div class="row">
+         <div class="col">
+            <h3>Haunted Holy Ground</h3>
+            <p>Richard also wrote 'Haunted Holy Ground' with Mike Buckingham</p>
+            <a href="http://www.newportpast.com/cemeteries/st_woolos/introduction.php" class="text">Read here</a>
+         </div>
+         <div class="col-md-auto">
+            <img src="../static/Thomas.jpg" height="200px">
+         </div>
+      </div>
+   </div>
+
+   <div class="container pb-3 pt-3">
+      <div class="row">
+         <div class="col-md-auto">
+            <img src="../static/alex.jpg" height="200px">
+         </div>
+         <div class="col">
+            <h3>Alexander Cordell's Biography</h3>
+            <p> In 1999, shortly after the death of Alexander Cordell, Richard and
+               Mike published his biography 'Alexander Cordell'</p>
+         </div>
+         
+      </div>
+   </div>
+   </aside>
+
+   {% include 'footer-bs.html' %}
+  </body>
+</html>

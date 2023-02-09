@@ -1,0 +1,17 @@
+<!--
+    Navbar Template for pages using Bootstrap
+    Must include:
+        <link rel="stylesheet" href="/static/header-footer.css">
+    and all other required bootstrap elements
+-->
+
+<table>
+  <nav>
+    <ul class="nav justify-content-center">
+      <li class="nav-item p-1"><a class="nav-link" href="{{url_for('homepage')}}">Home</a></li>
+      <li class="nav-item p-1"><a class="nav-link" href="{{url_for('returnTour')}}">Tour</a></li>
+      <li class="nav-item p-1"><a class="nav-link" href="{{url_for('contribution')}}">Contribution</a></li>
+      <li class="nav-item p-1"><a class="nav-link" href="{{url_for('loginPage')}}">Login</a></li>
+    </ul>
+  </nav>  
+</table>
